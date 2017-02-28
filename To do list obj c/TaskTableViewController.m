@@ -7,8 +7,7 @@
 //
 
 #import "TaskTableViewController.h"
-#import "AddTaskViewController.h"
-#import "TaskDetailsViewController.h"
+#import "TaskViewController.h"
 #import <CoreData/CoreData.h>
 
 @interface TaskTableViewController ()
@@ -141,10 +140,10 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"showTaskDetailsController"]) {
+    if ([segue.identifier isEqualToString:@"showTask"]) {
         NSManagedObject *chosenTask = [self.tasks objectAtIndex:[[self.tableView indexPathForSelectedRow]row]];
-        TaskDetailsViewController *taskDetailsController = segue.destinationViewController;
-                                       taskDetailsController.chosenTask = chosenTask;
+        TaskViewController *taskController = segue.destinationViewController;
+                                       taskController.task = chosenTask;
     }
 }
 
