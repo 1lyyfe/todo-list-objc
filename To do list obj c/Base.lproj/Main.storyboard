@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -75,38 +76,53 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Task" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cvJ-9g-BkM">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Task" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cvJ-9g-BkM">
                                 <rect key="frame" x="16" y="84" width="335" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Priority" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cob-tG-VR6">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Priority" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cob-tG-VR6">
                                 <rect key="frame" x="16" y="125" width="335" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xSK-Iu-m2O">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xSK-Iu-m2O">
                                 <rect key="frame" x="24" y="193" width="326" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Add"/>
                                 <connections>
                                     <action selector="addButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XEl-1h-GvF"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vR2-Pa-hts">
-                                <rect key="frame" x="24" y="231" width="326" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Cancel"/>
-                                <connections>
-                                    <action selector="cancelButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nOT-Z2-rOH"/>
-                                </connections>
-                            </button>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ED0-gB-W7K">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Task" id="Vrb-aR-WJM">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="C48-rJ-bpN">
+                                            <connections>
+                                                <action selector="cancelButtonClicked:" destination="BYZ-38-t0r" id="aLd-A0-89m"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="cob-tG-VR6" firstAttribute="top" secondItem="cvJ-9g-BkM" secondAttribute="bottom" constant="11" id="02S-gO-SAx"/>
+                            <constraint firstItem="cvJ-9g-BkM" firstAttribute="top" secondItem="ED0-gB-W7K" secondAttribute="bottom" constant="40" id="4eM-Ad-ySw"/>
+                            <constraint firstItem="cvJ-9g-BkM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="7RG-HQ-ssM"/>
+                            <constraint firstItem="ED0-gB-W7K" firstAttribute="centerX" secondItem="xSK-Iu-m2O" secondAttribute="centerX" id="AVD-oi-8DI"/>
+                            <constraint firstItem="xSK-Iu-m2O" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="8" id="Fu3-fQ-g7N"/>
+                            <constraint firstItem="ED0-gB-W7K" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="KaP-9Q-OKt"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="cvJ-9g-BkM" secondAttribute="trailing" constant="8" id="Qjr-2d-erF"/>
+                            <constraint firstItem="cvJ-9g-BkM" firstAttribute="trailing" secondItem="cob-tG-VR6" secondAttribute="trailing" id="S2z-ce-Hg8"/>
+                            <constraint firstItem="cvJ-9g-BkM" firstAttribute="leading" secondItem="cob-tG-VR6" secondAttribute="leading" id="dJV-u7-Amh"/>
+                            <constraint firstAttribute="trailing" secondItem="ED0-gB-W7K" secondAttribute="trailing" id="fHU-KO-yCC"/>
+                            <constraint firstItem="ED0-gB-W7K" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="kyH-4c-jae"/>
+                            <constraint firstItem="xSK-Iu-m2O" firstAttribute="top" secondItem="cob-tG-VR6" secondAttribute="bottom" constant="38" id="lno-2j-Ba7"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="taskNameTextField" destination="cvJ-9g-BkM" id="LaY-Tv-yYP"/>

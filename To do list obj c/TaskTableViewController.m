@@ -42,7 +42,7 @@
     
     //fetch the tasks from persistent data store
     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]initWithEntityName:@"Tasks"];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]initWithEntityName:@"Task"];
     self.tasks = [[managedObjectContext executeFetchRequest:fetchRequest error:nil]mutableCopy];
     [self.tableView reloadData];
 }
@@ -144,6 +144,7 @@
         NSManagedObject *chosenTask = [self.tasks objectAtIndex:[[self.tableView indexPathForSelectedRow]row]];
         TaskViewController *taskController = segue.destinationViewController;
                                        taskController.task = chosenTask;
+        
     }
 }
 

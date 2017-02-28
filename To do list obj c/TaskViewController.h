@@ -19,6 +19,7 @@
 - (IBAction)addButtonClicked:(id)sender;
 - (IBAction)cancelButtonClicked:(id)sender;
 
+
 //MARK:- Properties
 @property (strong) NSManagedObject *task;
 
