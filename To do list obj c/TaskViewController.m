@@ -9,6 +9,7 @@
 
 #import "TaskViewController.h"
 #import <CoreData/CoreData.h>
+#import "CustomFirebaseClass.h"
 
 
 @interface TaskViewController ()
@@ -17,7 +18,7 @@
 
 @implementation TaskViewController
 
-@synthesize task, taskNameTextField, taskPriorityTextField;
+@synthesize task, taskNameTextField, taskPriorityTextField, cfc;
 
 
 - (void)viewDidLoad {
@@ -59,6 +60,10 @@
         NSManagedObject *newTask = [NSEntityDescription insertNewObjectForEntityForName:@"Task" inManagedObjectContext:context];
         [newTask setValue:self.taskNameTextField.text forKey:@"name"];
         [newTask setValue:self.taskPriorityTextField.text forKey:@"priority"];
+    
+        cfc = [[CustomFirebaseClass alloc] init];
+        [cfc setTaskName:@""];
+        [cfc saveToFirebase];
     }
     
     NSError *error = nil;

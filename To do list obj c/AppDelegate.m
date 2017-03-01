@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+@import Firebase;
+@import UIKit;
+
 
 @interface AppDelegate ()
 
@@ -17,7 +20,8 @@
 @synthesize managedObjectContext, persistentStoreCoordinator, managedObjectModel;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    //firebase config
+    [FIRApp configure];
     return YES;
 }
 

@@ -73,7 +73,7 @@
     
     // Configure the cell...
     NSManagedObjectModel *task = [tasks objectAtIndex:indexPath.row];
-    [cell.textLabel setText: [NSString stringWithFormat:@"%@ %@",[task valueForKey:@"name"], [task valueForKey:@"priority"]]];
+    [cell.textLabel setText: [task valueForKey:@"name"]];
     [cell.detailTextLabel setText: [task valueForKey:@"priority"]];
     
     return cell;

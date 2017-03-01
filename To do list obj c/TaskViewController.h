@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomFirebaseClass.h"
 #import <CoreData/CoreData.h>
 
-@interface TaskViewController : UIViewController
+@interface TaskViewController : UIViewController {
+    
+}
 
 //MARK:- Outlets
 @property (weak, nonatomic) IBOutlet UITextField *taskNameTextField;
@@ -22,6 +25,8 @@
 
 //MARK:- Properties
 @property (strong) NSManagedObject *task;
+@property (assign) CustomFirebaseClass *cfc;
+
 
 @end
 
