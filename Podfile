@@ -8,6 +8,7 @@ target 'To do list obj c' do
   # Pods for To do list obj c
   pod 'Firebase/Core'
   pod 'Firebase/Database'
+  pod 'Firebase/Auth'
 
   target 'To do list obj cTests' do
     inherit! :search_paths
