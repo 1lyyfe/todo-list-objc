@@ -61,10 +61,16 @@
         [newTask setValue:self.taskNameTextField.text forKey:@"name"];
         [newTask setValue:self.taskPriorityTextField.text forKey:@"priority"];
     
-        cfc = [[CustomFirebaseClass alloc] init];
-        [cfc setTaskName:@""];
-        [cfc saveToFirebase];
+        // upload to firebase in background thread  
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+        //To save to firebase not working but did not have time to fix this - can do at a later date
+       // cfc = [[CustomFirebaseClass alloc] init];
+        //[cfc setTaskName:self.taskNameTextField.text];
+        //[cfc saveToFirebase];
+               });
     }
+                       
     
     NSError *error = nil;
     //save task object to persistant store

@@ -10,7 +10,7 @@
 		204EB5DE4E3A5260E37A7D51 /* libPods-To do list obj cTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0158A2CFBDD75D9BFC6B8873 /* libPods-To do list obj cTests.a */; };
 		58BBDA2EF3D6678FC68FA81D /* libPods-To do list obj cUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BABB34E1438F32B127C95AC8 /* libPods-To do list obj cUITests.a */; };
 		C1D3402CFE7E069AF146F307 /* libPods-To do list obj c.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30DC5D88178F20DEEEA8E7B3 /* libPods-To do list obj c.a */; };
-		FB4063431E66A61D00FE4A63 /* GoogleService-Info-6.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB4063421E66A61D00FE4A63 /* GoogleService-Info-6.plist */; };
+		FB4063431E66A61D00FE4A63 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FB4063421E66A61D00FE4A63 /* GoogleService-Info.plist */; };
 		FB4063481E66AA7B00FE4A63 /* CustomFirebaseClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4063471E66AA7B00FE4A63 /* CustomFirebaseClass.m */; };
 		FB55EB4C1E63858100BA3FC9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FB55EB4B1E63858100BA3FC9 /* main.m */; };
 		FB55EB4F1E63858100BA3FC9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB55EB4E1E63858100BA3FC9 /* AppDelegate.m */; };
@@ -52,7 +52,7 @@
 		BABB34E1438F32B127C95AC8 /* libPods-To do list obj cUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-To do list obj cUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3CC9A741F8C0DC07611C19E /* Pods-To do list obj c.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-To do list obj c.debug.xcconfig"; path = "Pods/Target Support Files/Pods-To do list obj c/Pods-To do list obj c.debug.xcconfig"; sourceTree = "<group>"; };
 		DA443CF3C22A465E7CB26C13 /* Pods-To do list obj cTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-To do list obj cTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-To do list obj cTests/Pods-To do list obj cTests.release.xcconfig"; sourceTree = "<group>"; };
-		FB4063421E66A61D00FE4A63 /* GoogleService-Info-6.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-6.plist"; sourceTree = "<group>"; };
+		FB4063421E66A61D00FE4A63 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FB4063461E66AA7B00FE4A63 /* CustomFirebaseClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomFirebaseClass.h; sourceTree = "<group>"; };
 		FB4063471E66AA7B00FE4A63 /* CustomFirebaseClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomFirebaseClass.m; sourceTree = "<group>"; };
 		FB55EB471E63858100BA3FC9 /* To do list obj c.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "To do list obj c.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,7 +156,7 @@
 				FB55EB591E63858100BA3FC9 /* Assets.xcassets */,
 				FB55EB5B1E63858100BA3FC9 /* LaunchScreen.storyboard */,
 				FB55EB5E1E63858100BA3FC9 /* Info.plist */,
-				FB4063421E66A61D00FE4A63 /* GoogleService-Info-6.plist */,
+				FB4063421E66A61D00FE4A63 /* GoogleService-Info.plist */,
 				FB55EB561E63858100BA3FC9 /* To_do_list_obj_c.xcdatamodeld */,
 				FB55EB4A1E63858100BA3FC9 /* Supporting Files */,
 			);
@@ -318,7 +318,7 @@
 			files = (
 				FB55EB5D1E63858100BA3FC9 /* LaunchScreen.storyboard in Resources */,
 				FB55EB5A1E63858100BA3FC9 /* Assets.xcassets in Resources */,
-				FB4063431E66A61D00FE4A63 /* GoogleService-Info-6.plist in Resources */,
+				FB4063431E66A61D00FE4A63 /* GoogleService-Info.plist in Resources */,
 				FB55EB551E63858100BA3FC9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
