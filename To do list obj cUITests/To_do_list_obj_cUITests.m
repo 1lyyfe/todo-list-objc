@@ -32,9 +32,10 @@
     [super tearDown];
 }
 
-- (void)testExample {
-    // Use recording to get started writing UI tests.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
+- (void)testNavigationController {
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    [app.navigationBars[@"TaskTableView"].buttons[@"Add"] tap];
+    [app.navigationBars[@"Task"].buttons[@"Cancel"] tap];
 }
 
 @end

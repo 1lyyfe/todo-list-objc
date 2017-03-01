@@ -7,8 +7,11 @@
 //
 
 #import <XCTest/XCTest.h>
+#import <CoreData/CoreData.h>
 
 @interface To_do_list_obj_cTests : XCTestCase
+
+@property (nonatomic,retain) NSManagedObjectContext *moc;
 
 @end
 
@@ -16,7 +19,7 @@
 
 - (void)setUp {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    
 }
 
 - (void)tearDown {
