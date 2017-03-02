@@ -67,15 +67,12 @@ NSManagedObjectModel *task;
         NSDictionary *dict;
         dict = @{ @"taskName":[task valueForKey:@"name"], @"taskPriority":[task valueForKey:@"priority"]};
         [array insertObject:dict atIndex:i];
-        NSLog(@"DATA IN NOODES: %@", [array[i] objectAtIndex:i]);
+        NSLog(@"DATA IN Outer array: %@", [array[i] objectAtIndex:i]);
     }
     
     for (int i = 0; i < [array count]; i++) {
-        NSLog(@"DATA IN NOODES: %@", array[i]);
+        NSLog(@"DATA IN outer array: %@", array[i]);
     }
-    
-    
-    
 }
 
 - (IBAction)addButtonClicked:(id)sender {
