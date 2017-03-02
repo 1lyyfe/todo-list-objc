@@ -13,6 +13,7 @@
 
 
 @interface TaskViewController ()
+@property (strong, nonatomic)NSMutableArray *tasks;
 
 @end
 
@@ -20,6 +21,8 @@
 
 @synthesize task, taskNameTextField, taskPriorityTextField;
 
+NSMutableArray *array;
+NSManagedObjectModel *task;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,6 +51,33 @@
     return context;
 }
 
+- (void)fetchTasksFromCoreData {
+    //fetch the tasks from persistent data store
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]initWithEntityName:@"Task"];
+    self.tasks = [[managedObjectContext executeFetchRequest:fetchRequest error:nil]mutableCopy];
+    
+    NSLog(@"TASKS ARRAY FETCHED: %@", self.tasks);
+    NSLog(@"TASKS ARRAY FETCHED: %@", [self.tasks objectAtIndex:0]);
+    
+    //Need to convert self.tasks managedObjectContext to JSON/dictionary to upload to firebase
+    
+    for (int i = 0; i < [self.tasks count]; i++) {
+        task = [self.tasks objectAtIndex:i];
+        NSDictionary *dict;
+        dict = @{ @"taskName":[task valueForKey:@"name"], @"taskPriority":[task valueForKey:@"priority"]};
+        [array insertObject:dict atIndex:i];
+        NSLog(@"DATA IN NOODES: %@", [array[i] objectAtIndex:i]);
+    }
+    
+    for (int i = 0; i < [array count]; i++) {
+        NSLog(@"DATA IN NOODES: %@", array[i]);
+    }
+    
+    
+    
+}
+
 - (IBAction)addButtonClicked:(id)sender {
     NSManagedObjectContext *context = [self managedObjectContext];
     
@@ -63,6 +93,8 @@
         
         // upload to firebase in background thread
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [self fetchTasksFromCoreData];
             
             //To save to firebase not working but did not have time to fix this - can do at a later date
             [CustomFirebaseDbClass setTaskName:self.taskNameTextField.text];

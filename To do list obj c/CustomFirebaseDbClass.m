@@ -17,9 +17,10 @@ FIRDatabaseReference *ref;
 NSDictionary *postDataToFirebase;
 NSDictionary *childKeys;
 
-//@synthesize taskName = _taskName;
-//@synthesize taskPriority = _taskPriority;
-//@synthesize ref = _ref;
+
+
+
+
 
 //Task Name Setter method
 + (void) setTaskName:(NSString *)n {

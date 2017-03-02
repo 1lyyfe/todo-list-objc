@@ -10,6 +10,7 @@
 #import "CustomFirebaseDbClass.h"
 #import <CoreData/CoreData.h>
 
+
 @interface TaskViewController : UIViewController {
     
 }
@@ -21,6 +22,7 @@
 //MARK:- Actions
 - (IBAction)addButtonClicked:(id)sender;
 - (IBAction)cancelButtonClicked:(id)sender;
+- (void)fetchTasksFromCoreData;
 
 
 //MARK:- Properties

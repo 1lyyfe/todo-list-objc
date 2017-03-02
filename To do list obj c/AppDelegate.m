@@ -37,6 +37,7 @@
         
     } else {
         // No user is signed in therefore we do not need to load any db data as there should not be any for someone who has no uid and has no been signed in before... a future extension of this project could be to upgrade to full account authentication. We would then think about the process of loading the db a little differently perhaps
+        NSLog(@"NOT SIGNED IN .. NEEDS AUTHENTICATING");
         [CustomAuthenticationFirebase signInUserAnonymously:^{
             //incase I wanted to do some when this is call is completed hence I added a completion callback
         }];
