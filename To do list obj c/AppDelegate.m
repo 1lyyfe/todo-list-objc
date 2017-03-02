@@ -7,7 +7,10 @@
 //
 
 #import "AppDelegate.h"
+#import "CustomAuthenticationFirebase.h"
+#import "CustomFirebaseDbClass.h"
 @import Firebase;
+@import FirebaseAuth;
 @import UIKit;
 
 
@@ -22,7 +25,30 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //firebase config
     [FIRApp configure];
+    
+    //check if user authenticated... if this user has already previously signed in anonymously then they should still be signed in from firebase across multiple sessions using the same uid therefore we can save to db uniquely by key record using their uid
+    if ([FIRAuth auth].currentUser) {
+        // User is signed in.
+        [CustomAuthenticationFirebase setUid:[FIRAuth auth].currentUser.uid];
+        NSLog(@"UID CURRENTLY SIGNED IN: %@", [FIRAuth auth].currentUser.uid);
+        
+        //Pull their db data from firebase and load into coredata as a change could be made from backend so we need to ensure the local and backend are in sync
+        [self loadFirebaseDb];
+        
+    } else {
+        // No user is signed in therefore we do not need to load any db data as there should not be any for someone who has no uid and has no been signed in before... a future extension of this project could be to upgrade to full account authentication. We would then think about the process of loading the db a little differently perhaps
+        [CustomAuthenticationFirebase signInUserAnonymously:^{
+            //incase I wanted to do some when this is call is completed hence I added a completion callback
+        }];
+    }
     return YES;
+}
+
+- (void)loadFirebaseDb {
+    [CustomFirebaseDbClass loadDataFromDb:^{
+        //completion callbacks incase I want to implement extended functionality at a later point. We would be able to do certain things on completion of the db loading the data from fb. For now because we store the firebase db data in the customFirebaseDb class methods we can sync the core data within the taskviewcontroller using the class getters and setters as the static variables have already been initiated during fb snapshot value listening
+    }];
+    
 }
 
 

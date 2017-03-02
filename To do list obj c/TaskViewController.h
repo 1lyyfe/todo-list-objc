@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CustomFirebaseClass.h"
+#import "CustomFirebaseDbClass.h"
 #import <CoreData/CoreData.h>
 
 @interface TaskViewController : UIViewController {
@@ -25,8 +25,6 @@
 
 //MARK:- Properties
 @property (strong) NSManagedObject *task;
-@property (assign) CustomFirebaseClass *cfc;
-
 
 @end
 

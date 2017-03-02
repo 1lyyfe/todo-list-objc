@@ -75,11 +75,8 @@
     NSManagedObjectModel *task = [tasks objectAtIndex:indexPath.row];
     [cell.textLabel setText: [task valueForKey:@"name"]];
     [cell.detailTextLabel setText: [task valueForKey:@"priority"]];
-    
     return cell;
 }
-
-
 
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -87,17 +84,13 @@
     return YES;
 }
 
-
-
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSManagedObjectContext *context = [self managedObjectContext];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [context deleteObject: [tasks objectAtIndex:indexPath.row]];
-        
         // Delete the row from the data source
-      
     }
     
     NSError *error = nil;

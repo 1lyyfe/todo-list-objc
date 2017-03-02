@@ -9,7 +9,7 @@
 
 #import "TaskViewController.h"
 #import <CoreData/CoreData.h>
-#import "CustomFirebaseClass.h"
+#import "CustomFirebaseDbClass.h"
 
 
 @interface TaskViewController ()
@@ -18,7 +18,7 @@
 
 @implementation TaskViewController
 
-@synthesize task, taskNameTextField, taskPriorityTextField, cfc;
+@synthesize task, taskNameTextField, taskPriorityTextField;
 
 
 - (void)viewDidLoad {
@@ -60,17 +60,19 @@
         NSManagedObject *newTask = [NSEntityDescription insertNewObjectForEntityForName:@"Task" inManagedObjectContext:context];
         [newTask setValue:self.taskNameTextField.text forKey:@"name"];
         [newTask setValue:self.taskPriorityTextField.text forKey:@"priority"];
-    
-        // upload to firebase in background thread  
+        
+        // upload to firebase in background thread
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
-        //To save to firebase not working but did not have time to fix this - can do at a later date
-       // cfc = [[CustomFirebaseClass alloc] init];
-        //[cfc setTaskName:self.taskNameTextField.text];
-        //[cfc saveToFirebase];
-               });
+            //To save to firebase not working but did not have time to fix this - can do at a later date
+            [CustomFirebaseDbClass setTaskName:self.taskNameTextField.text];
+            [CustomFirebaseDbClass setTaskPriority:self.taskPriorityTextField.text];
+            NSLog(@"TASK NAME FROM FB CLASS: %@", [CustomFirebaseDbClass getTaskName]);
+            NSLog(@"TASK PRIORITY FROM FB CLASS: %@", [CustomFirebaseDbClass getTaskPriority]);
+            [CustomFirebaseDbClass saveToFirebase];
+        });
     }
-                       
+    
     
     NSError *error = nil;
     //save task object to persistant store
@@ -82,7 +84,7 @@
 }
 
 - (IBAction)cancelButtonClicked:(id)sender {
-     [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
