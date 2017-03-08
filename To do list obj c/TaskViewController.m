@@ -55,24 +55,25 @@ NSManagedObjectModel *task;
     //fetch the tasks from persistent data store
     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]initWithEntityName:@"Task"];
-    self.tasks = [[managedObjectContext executeFetchRequest:fetchRequest error:nil]mutableCopy];
+    fetchRequest.resultType = NSDictionaryResultType;
     
-    NSLog(@"TASKS ARRAY FETCHED: %@", self.tasks);
-    NSLog(@"TASKS ARRAY FETCHED: %@", [self.tasks objectAtIndex:0]);
+    NSError *error      = nil;
+    //fetch coredata and put managed object context data into an array
+    NSArray *results    = [self.managedObjectContext executeFetchRequest:fetchRequest
+                                                                   error:&error];
+    //init array with size of items in coredata stack
+    array = [[NSMutableArray alloc]initWithCapacity:results.count];
     
-    //Need to convert self.tasks managedObjectContext to JSON/dictionary to upload to firebase
-    
-    for (int i = 0; i < [self.tasks count]; i++) {
-        task = [self.tasks objectAtIndex:i];
-        NSDictionary *dict;
-        dict = @{ @"taskName":[task valueForKey:@"name"], @"taskPriority":[task valueForKey:@"priority"]};
-        [array insertObject:dict atIndex:i];
-        NSLog(@"DATA IN Outer array: %@", [array[i] objectAtIndex:i]);
+    //iterate over fetched object array and store task name and task priority into dictionary format
+    for (id object in results) {
+        
+        NSDictionary *temp = @{ [NSString stringWithFormat:@"%@",[object valueForKey:@"name"]]: [object valueForKey:@"priority"]};
+        NSLog(@"TEMPYYY %@", temp);
+        [array addObject:temp]; //append dictionary values into outer array in correct format to send to firebase
     }
     
-    for (int i = 0; i < [array count]; i++) {
-        NSLog(@"DATA IN outer array: %@", array[i]);
-    }
+    NSLog(@"OUTER ARRAY: %@", array);
+
 }
 
 - (IBAction)addButtonClicked:(id)sender {
@@ -87,21 +88,7 @@ NSManagedObjectModel *task;
         NSManagedObject *newTask = [NSEntityDescription insertNewObjectForEntityForName:@"Task" inManagedObjectContext:context];
         [newTask setValue:self.taskNameTextField.text forKey:@"name"];
         [newTask setValue:self.taskPriorityTextField.text forKey:@"priority"];
-        
-        // upload to firebase in background thread
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            
-            [self fetchTasksFromCoreData];
-            
-            //To save to firebase not working but did not have time to fix this - can do at a later date
-            [CustomFirebaseDbClass setTaskName:self.taskNameTextField.text];
-            [CustomFirebaseDbClass setTaskPriority:self.taskPriorityTextField.text];
-            NSLog(@"TASK NAME FROM FB CLASS: %@", [CustomFirebaseDbClass getTaskName]);
-            NSLog(@"TASK PRIORITY FROM FB CLASS: %@", [CustomFirebaseDbClass getTaskPriority]);
-            [CustomFirebaseDbClass saveToFirebase];
-        });
     }
-    
     
     NSError *error = nil;
     //save task object to persistant store
@@ -109,6 +96,19 @@ NSManagedObjectModel *task;
         NSLog(@"Cannot add task! %@ %@", error, [error localizedDescription]);
         return;
     }
+    
+    //fetch all coredata and put into json format to be able to write to firebase
+    [self fetchTasksFromCoreData];
+    
+    // upload to firebase in background thread
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        //To save to firebase not working but did not have time to fix this - can do at a later date
+        [CustomFirebaseDbClass setData:array];
+        NSLog(@"DATA ARRAY FROM FB CLASS: %@", [CustomFirebaseDbClass getData]);
+        [CustomFirebaseDbClass saveToFirebase];
+    });
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

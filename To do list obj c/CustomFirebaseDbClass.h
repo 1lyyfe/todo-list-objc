@@ -23,6 +23,10 @@ typedef void(^DbLoadCompletionCallback)();
 + (NSString*) getTaskPriority;
 + (void) setTaskName:(NSString *)n;
 + (NSString*) getTaskName;
++ (void) setData:(NSMutableArray *)n;
++ (NSMutableArray*) getData;
+
+
 + (void)loadDataFromDb:(DbLoadCompletionCallback)completion;
 
 

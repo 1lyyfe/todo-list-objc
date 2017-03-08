@@ -13,13 +13,10 @@
 
 static NSString *_taskName = @"";
 static NSString *_taskPriority = @"";
+static NSMutableArray *coreDataContent;
 FIRDatabaseReference *ref;
 NSDictionary *postDataToFirebase;
 NSDictionary *childKeys;
-
-
-
-
 
 
 //Task Name Setter method
@@ -44,25 +41,31 @@ NSDictionary *childKeys;
     return _taskPriority;
 }
 
+//Firebase data Setter method
++ (void) setData:(NSMutableArray *)n {
+    NSLog(@"Setting array with coredata content to: %@", n);
+    coreDataContent = n;
+}
+//Firebase data Getter method
++ (NSMutableArray*) getData {
+     NSLog(@"Returning array containing coredata: %@", coreDataContent);
+    return coreDataContent;
+}
+
+
 //read the data at the users path within the firebase db
 + (void)loadDataFromDb: (DbLoadCompletionCallback) completion {
     ref = [[FIRDatabase database] reference];
     [[[ref child:@"users"] child:[CustomAuthenticationFirebase getUid]] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
         NSDictionary *dictionary = snapshot.value;
-        NSString *storeTaskName = @"";
-        NSString *storeTaskPriority = @"";
-        
-        if (dictionary[@"taskName"] != nil) {
-            storeTaskName = dictionary[@"taskName"];
-            NSLog(@"TASK NAME LOADED FROM DB: %@", storeTaskName);
-            [self setTaskName:storeTaskName];
-        }
-        
-        if (dictionary[@"taskPriority"] != nil) {
-            storeTaskPriority = dictionary[@"taskPriority"];
-            NSLog(@"TASK PRIORITY LOADED FROM DB: %@", storeTaskPriority);
-            [self setTaskPriority:storeTaskPriority];
+        NSMutableArray *storeData;
+        //read data from firebase in json format and store in CustomFirebaseDB class model
+        if (dictionary[@"data"] != nil) {
+            storeData = dictionary[@"data"];
+            NSLog(@"DATA LOADED FROM DB: %@", storeData);
+            [self setData:storeData];
+            NSLog(@"DATA LOADED FROM CUSTOM FB MODEL ONCE SET: %@", [self getData]);
         }
         completion();
     }]; //Need to implement some code here to check for errors or failure in retreiving data
@@ -70,7 +73,7 @@ NSDictionary *childKeys;
 
 //format data in correct format to write to firebase db so that is stored in correct key-value order as I want it
 + (NSDictionary*) toJson {
-    postDataToFirebase =  @{ @"taskName":[self getTaskName], @"taskPriority":[self getTaskPriority]};
+    postDataToFirebase =  @{ @"data":[self getData]};
     return postDataToFirebase;
 }
 

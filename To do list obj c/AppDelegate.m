@@ -32,7 +32,8 @@
         [CustomAuthenticationFirebase setUid:[FIRAuth auth].currentUser.uid];
         NSLog(@"UID CURRENTLY SIGNED IN: %@", [FIRAuth auth].currentUser.uid);
         
-        //Pull their db data from firebase and load into coredata as a change could be made from backend so we need to ensure the local and backend are in sync
+        //Pull their db data from firebase and load into coredata as a change could be made from backend so we need to ensure the local and backend are in sync..first clear core data then update data store managed context with data loaded from firebase
+        //[self clearCoreData];
         [self loadFirebaseDb];
         
     } else {
@@ -47,10 +48,55 @@
 
 - (void)loadFirebaseDb {
     [CustomFirebaseDbClass loadDataFromDb:^{
-        //completion callbacks incase I want to implement extended functionality at a later point. We would be able to do certain things on completion of the db loading the data from fb. For now because we store the firebase db data in the customFirebaseDb class methods we can sync the core data within the taskviewcontroller using the class getters and setters as the static variables have already been initiated during fb snapshot value listening
+        //completion callbacks incase I want to implement extended functionality at a later point. We would be able to do certain things on completion of the db loading the data from fb. For now because we store the firebase db data in the customFirebaseDb class methods we can sync the core data within the taskviewcontroller using the class getters and setters as the static variables have already been initiated during fb snapshot value listening and then updating the coredata stack accordingly
+        
+        NSMutableArray *array = [CustomFirebaseDbClass getData];
+        //create a new task
+        NSManagedObjectContext *context = [self managedObjectContext];
+        NSManagedObject *newTask = [NSEntityDescription insertNewObjectForEntityForName:@"Task" inManagedObjectContext:context];
+        
+        for (id object in array) {
+            
+           
+            
+            
+            [object enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+                NSLog(@"KEY: %@, VALUE: %@", key, obj);
+               // [newTask setValue:(@"%@",key) forKey:@"name"];
+                //[newTask setValue:(@"%@",obj) forKey:@"priority"];
+            }];
+            
+          
+            
+          //  [newTask setValue:[object ] forKey:@"name"];
+           // [newTask setValue:self.taskPriorityTextField.text forKey:@"priority"];
+            
+        }
+        
+        
     }];
     
 }
+         
+- (void)clearCoreData {
+             
+             NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+             NSEntityDescription *entity = [NSEntityDescription entityForName:@"Task" inManagedObjectContext:self.managedObjectContext];
+             [fetchRequest setEntity:entity];
+             
+             NSError *error = nil;
+             NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+             if (fetchedObjects == nil) {
+                 NSLog(@"Could not delete Entity Objects");
+             }
+             
+             for (NSManagedObject *currentObject in fetchedObjects) {
+                 [self.managedObjectContext deleteObject:currentObject];
+             }
+             
+             [self saveContext];
+             
+         }
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
